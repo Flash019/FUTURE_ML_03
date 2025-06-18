@@ -3,3 +3,5 @@ streamlit
 transformers
 openai
 scikit-learn
+torch
+sentence-transformers
