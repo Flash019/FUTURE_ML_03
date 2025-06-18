@@ -1,0 +1,5 @@
+torch
+streamlit
+transformers
+openai
+scikit-learn
