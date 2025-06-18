@@ -1,5 +1,4 @@
 import os
-import sys
 import torch
 import numpy as np
 import pandas as pd
@@ -7,7 +6,6 @@ import streamlit as st
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from groq import Groq
-from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -36,7 +34,9 @@ def load_faq_data():
         st.error("❌ Required columns not found.")
         return None, None
 
-    # Add fixed FAQs
+    # Limit to 500 for faster load
+    df = df.head(500)
+
     additional_faqs = [
         {"question": "How do I reset my password?", "answer": "Click 'Forgot password' on the login page and follow the instructions."},
         {"question": "What is your return policy?", "answer": "We accept returns within 30 days of purchase."},
@@ -53,12 +53,7 @@ def load_faq_data():
 @st.cache_resource
 def encode_faqs(faq_questions):
     model = SentenceTransformer(EMBEDDING_MODEL_NAME)
-    embeddings = []
-    batch_size = 32
-    for i in tqdm(range(0, len(faq_questions), batch_size), desc="🔄 Embedding"):
-        batch = faq_questions[i:i+batch_size]
-        encoded = model.encode(batch)
-        embeddings.extend(encoded)
+    embeddings = model.encode(faq_questions, batch_size=32, show_progress_bar=False)
     return model, np.array(embeddings)
 
 # === STEP 3: Fallback to Groq ===
@@ -89,7 +84,7 @@ def get_best_answer(user_question, embedding_model, faq_data, faq_embeddings, th
 # === Streamlit UI ===
 def main():
     st.set_page_config(page_title="FAQ Chatbot", page_icon="🤖")
-    st.title("🧙‍♂ Wizard Coustomer support 🪄")
+    st.title("🧙‍♂ Wizard Coustomer Support 🪄")
     st.markdown("Ask any question below. Here are a few examples:")
 
     st.info(
@@ -99,14 +94,12 @@ def main():
         "- Do you ship internationally?"
     )
 
-    # Load and encode
     with st.spinner("Loading and embedding FAQs..."):
         faq_data, faq_questions = load_faq_data()
         if not faq_data:
             return
         embedding_model, faq_embeddings = encode_faqs(faq_questions)
 
-    # Chat input
     user_question = st.text_input("🔮 Ask your question:")
     if user_question:
         with st.spinner("Thinking..."):
