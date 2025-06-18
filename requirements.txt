@@ -1,7 +1,8 @@
-torch
 streamlit
-transformers
-openai
-scikit-learn
 torch
+pandas
+numpy
+scikit-learn
 sentence-transformers
+groq
+tqdm
