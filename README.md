@@ -1,66 +1,48 @@
 <p align="center">
-  <img src="https://i.imgur.com/qzWcvGZ.png" alt="Wizard Customer Support Chatbot Banner" width="100%">
+  <img src="https://raw.githubusercontent.com/Flash019/FUTURE_ML_03/main/Screenshot%202025-06-19%20133001.png" alt="Wizard Customer Support UI" width="100%">
 </p>
 
 <h1 align="center">🧙‍♂️ Wizard Customer Support Chatbot</h1>
 
 <p align="center">
-  An AI-powered FAQ chatbot that matches customer queries to answers using Sentence-BERT and intelligently falls back to Groq’s <strong>LLaMA 3</strong> model for unmatched questions.
+  An intelligent FAQ chatbot using <strong>Sentence-BERT</strong> for question matching and <strong>Groq’s LLaMA 3</strong> for smart fallback answers.
 </p>
 
 <p align="center">
-  <a href="https://wizardcoustomersupport99.streamlit.app/" target="_blank">
-    🔗 Live Demo on Streamlit
-  </a>
+  <a href="https://wizardcoustomersupport99.streamlit.app/" target="_blank">🚀 Live Demo</a>
 </p>
 
 ---
 
-## 🚀 Overview
+## 🔍 Overview
 
-**Wizard Customer Support** is a real-time chatbot designed to improve customer support with smart FAQ matching and advanced fallback handling using modern AI tools.
+**Wizard Customer Support** is a Streamlit-based chatbot that handles real-time customer queries using a hybrid of:
+- **Semantic Search** with SentenceTransformers
+- **Groq LLaMA 3 API** for fallback answers
 
-- ⚡ Built with **Streamlit** for fast UI
-- 🧠 Uses **Sentence Transformers** for semantic search
-- 🦙 Falls back to **Groq's LLaMA 3** for unmatched queries
-- 📄 Reads from a customizable **FAQ CSV file**
-- 🧪 Lightweight, fast, and easy to deploy
+It’s designed to simulate a helpful, magical support wizard 🧙 that always finds an answer.
 
 ---
 
 ## 🧰 Tech Stack
 
-- `Streamlit` — UI Framework
-- `SentenceTransformers` — for vector embeddings
-- `Groq API` — for fallback answers (LLaMA3-8b-8192)
-- `Pandas` / `Sklearn` — for data handling and similarity
-- `Python` — Core logic
+- 🔤 **NLP:** `sentence-transformers` (`all-MiniLM-L6-v2`)
+- 🤖 **Fallback LLM:** `Groq` + `llama3-8b-8192`
+- 📊 **Data:** CSV-based FAQ ingestion
+- 🌐 **Frontend:** Streamlit
+- 📎 **Similarity:** Cosine similarity for semantic search
 
 ---
 
-## 📂 File Structure
-
-
----
-
-## 🧪 How It Works
-
-1. **Load FAQ Dataset** (CSV format)
-2. **Embed Questions** using `all-MiniLM-L6-v2`
-3. **Find Best Match** using cosine similarity
-4. **Fallback to LLaMA 3** if no match is above the threshold
-
----
-
-## 📦 Installation
+## 📦 Setup Instructions
 
 ```bash
-# Clone this repository
-git clone https://github.com/your-username/wizard-customer-support.git
-cd wizard-customer-support
+# 1. Clone the repository
+git clone https://github.com/Flash019/FUTURE_ML_03.git
+cd FUTURE_ML_03
 
-# Install dependencies
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# Run the app
+# 3. Run the app
 streamlit run app.py
